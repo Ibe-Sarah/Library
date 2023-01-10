@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header><h3> SAY'RAH'S LIBRARY</h3></header>
+    <div class="signup">
+
+     <div class="form"><label for="email">Email</label>
+      <input type="email" id="email">
+      <label for="password">Password</label>
+      <input type="password" id="password"></div>
+
+      <button type="button" id="submit" name="submit">Sign-Up </button>
+    <h4>Already A User? <button type="button" id="login">Login</button></h4>
+    </div>
+
+    <div class="add"><button>+ Add Book</button></div>
+    <footer>copyright (c) 2022 Say'rah </footer>
+ <!-- <script>
+  const login= document.getElementById("login");
+
+  const signInWithGoogle= () => {
+    const googleProvider= new firebae.auth.GoogleAuthProvider();
+    auth.signInWithPopup(googleProvider)
+    .then(()=> {
+      alert("signed in succcessfully")
+    })
+    .catch(error=> {
+      console.error(error);
+    })
+  }
+
+
+  const auth= firebase.auth();
+  login.addEventListener('click', signInWithGoogle);
+ </script> -->
+     <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+      import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+      import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+      import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBPE1iMU_3yy5N2SquZ3dShf5tDPD5bYBM",
+        authDomain: "java-auth-10a6f.firebaseapp.com",
+        projectId: "java-auth-10a6f",
+        storageBucket: "java-auth-10a6f.appspot.com",
+        messagingSenderId: "110333348079",
+        appId: "1:110333348079:web:62c33ab045b649465df31a"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const database = getDatabase(app);
+      const provider = new GoogleAuthProvider(app);
+
+
+//       submit.addEventListener('click', (e)=> {
+//         var email= document.getElementById('email').value;
+//         var password= document.getElementById('password').value;
+
+
+
+        
+
+//         createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ... user.uid
+
+//     set(ref(database, 'users/' + user.uid), {
+//     email: email,
+//     password: password
+    
+//   })
+//   .then(() => {
+//   // Data saved successfully!
+//   alert("User created successfully. Go ahead and book to the Library");
+// })
+// .catch((error) => {
+//   // The write failed...
+//   alert(error)
+// });
+  
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//     alert(errorMessage);
+//   });
+//  })
+  login.addEventListener('click', (e)=> {
+         var email= document.getElementById('email').value;
+         var password= document.getElementById('password').value;
+        
+         const auth = getAuth();
+        signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = "unauthorised domain";
+     alert(errorCode);
+
+     const errorMessage = error.message;
+     alert(errorMessage);
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+
+})
+    
+    </script> -->
+   
+</body>
+</html>
