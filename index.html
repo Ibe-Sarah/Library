@@ -139,9 +139,9 @@ logout.addEventListener('click', (e)=> {
   
 signOut(auth).then(() => {
   // Sign-out successful.
-  // 
-  window.close();
-}).catch((error) => {
+   var customWindow = window.open('', '_blank', '');
+    customWindow.close();
+  }).catch((error) => {
   // An error happened.
 });
 })
