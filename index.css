@@ -15,17 +15,19 @@ h4{
     font-size: 20px;
 } 
 
-.form{
+/* .form{
     display: grid;
     grid-template-columns: 200px;
    gap: 20px;
-}
+} */
  .signup button{
+    display: grid;
+    grid-template-columns: 70px 70px;
     background-color: black;
     border-radius: 5px;
     color: white;
-    font-size: 30px;
-    margin-top: 50px;
+    font-size: 20px;
+  
 }
 .add{
     margin-left: 500px;
@@ -36,6 +38,14 @@ h4{
     border-radius: 5px;
     color: white;
     font-size: 30px;
+}
+#login{
+    margin-left: -100px;
+}
+#logout {
+    margin-top: -55px;
+    margin-left: 150px;
+    
 }
 
 footer{

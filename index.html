@@ -18,10 +18,11 @@
 
       <button type="button" id="submit" name="submit">Sign-Up </button> -->
     <h4><button type="button" id="login">Login</button></h4>
+    <h4><button type="button" id="logout">Logout</button></h4>
     </div>
 
     <div class="add"><button>+ Add Book</button></div>
-    <footer>copyright (c) 2022 Say'rah </footer>
+    <footer>copyright (c) 2023 Say'rah </footer>
  <!-- <script>
   const login= document.getElementById("login");
 
@@ -104,8 +105,8 @@
 //   });
 //  })
   login.addEventListener('click', (e)=> {
-         var email= document.getElementById('email').value;
-         var password= document.getElementById('password').value;
+        //  var email= document.getElementById('email').value;
+        //  var password= document.getElementById('password').value;
         
          const auth = getAuth();
         signInWithPopup(auth, provider)
@@ -116,7 +117,7 @@
     // The signed-in user info.
     const user = result.user;
  alert('Logged In Successfully');
-const login= document.getElementById('login').innerHTML= 'Logout';
+const login= document.getElementById('login').innerHTML= 'Logged In Successfully';
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -133,15 +134,16 @@ const login= document.getElementById('login').innerHTML= 'Logout';
   });
 
 })
-// 'Logout'.addEventListener('click', (e)=> {
-//   const auth= getAuth();
+logout.addEventListener('click', (e)=> {
+  const auth= getAuth();
   
-// signOut(auth).then(() => {
-//   // Sign-out successful.
-// }).catch((error) => {
-//   // An error happened.
-// });
-// })
+signOut(auth).then(() => {
+  // Sign-out successful.
+  const logout= document.getElementById('logout').innerHTML= 'Logged Out Successfully'
+}).catch((error) => {
+  // An error happened.
+});
+})
     
     </script> -->
    
