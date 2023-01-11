@@ -139,7 +139,8 @@ logout.addEventListener('click', (e)=> {
   
 signOut(auth).then(() => {
   // Sign-out successful.
-  const logout= document.getElementById('logout').innerHTML= 'Logged Out Successfully'
+  // 
+  window.close();
 }).catch((error) => {
   // An error happened.
 });
