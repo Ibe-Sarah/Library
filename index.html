@@ -11,13 +11,13 @@
     <header><h3> SAY'RAH'S LIBRARY</h3></header>
     <div class="signup">
 
-     <div class="form"><label for="email">Email</label>
+     <!-- <div class="form"><label for="email">Email</label>
       <input type="email" id="email">
       <label for="password">Password</label>
       <input type="password" id="password"></div>
 
-      <button type="button" id="submit" name="submit">Sign-Up </button>
-    <h4>Already A User? <button type="button" id="login">Login</button></h4>
+      <button type="button" id="submit" name="submit">Sign-Up </button> -->
+    <h4><button type="button" id="login">Login</button></h4>
     </div>
 
     <div class="add"><button>+ Add Book</button></div>
@@ -45,7 +45,7 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
       import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
       import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-      import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+      import { GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
@@ -116,7 +116,7 @@
     // The signed-in user info.
     const user = result.user;
  alert('Logged In Successfully');
-const login= document.getElementById('login').innerHTML= 'Logout'
+const login= document.getElementById('login').innerHTML= 'Logout';
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -132,6 +132,14 @@ const login= document.getElementById('login').innerHTML= 'Logout'
     // ...
   });
 
+})
+'Logout'.addEventListener('click', (e)=> {
+  const auth= getAuth();
+signOut(auth).then(() => {
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
 })
     
     </script> -->
