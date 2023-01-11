@@ -43,7 +43,7 @@
      <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-      import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+      import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
       import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
       import { GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -135,6 +135,7 @@ const login= document.getElementById('login').innerHTML= 'Logout';
 })
 'Logout'.addEventListener('click', (e)=> {
   const auth= getAuth();
+
 signOut(auth).then(() => {
   // Sign-out successful.
 }).catch((error) => {
