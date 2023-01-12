@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header><h3> SAY'RAH'S LIBRARY</h3></header>
+    <header><h3> e-LIBRARY</h3></header>
     <div class="signup">
 
      <!-- <div class="form"><label for="email">Email</label>
@@ -71,10 +71,7 @@
 //       submit.addEventListener('click', (e)=> {
 //         var email= document.getElementById('email').value;
 //         var password= document.getElementById('password').value;
-
-
-
-        
+   
 
 //         createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
@@ -145,7 +142,80 @@ signOut(auth).then(() => {
 });
 })
     
-    </script> -->
+    </script> 
+    <script>
+     function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.info = function() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read"}`;
+  }
+}
+
+let bookList = [];
+
+
+ // This function uses the prompt() function to get the title, author,
+  // and number of pages from the user, and the confirm() function
+  // to get whether or not the user has read the book. 
+  // These values are used to create a new book object using the Book constructor. 
+  // The new book object is then added to the books array using the push() method.
+
+function addBook() {
+  let title = prompt("Enter the title of the book:");
+  let author = prompt("Enter the author of the book:");
+  let pages = parseInt(prompt("Enter the number of pages in the book:"));
+  let read = confirm("Have you read this book?");
+
+  let newBook = new Book(title, author, pages, read);
+  bookList.push(newBook);
+ }
+  // This function creates a table element, and then creates 
+  // a header row with cells for "Title", "Author", "Pages",
+  // and "Read". Then it loops through the books array and for
+  // each book it creates a new row in the table with cells for
+  // the book's title, author, pages, and read status. The innerHTML
+  // of each cell is set to the corresponding property of the book. 
+  // Finally, the table is appended to the body of the document.
+  function displayBooks() {
+  let table = document.createElement("table");
+  let headerRow = table.insertRow();
+  let titleHeader = headerRow.insertCell();
+  let authorHeader = headerRow.insertCell();
+  let pagesHeader = headerRow.insertCell();
+  let readHeader = headerRow.insertCell();
+  titleHeader.innerHTML = "Title";
+  authorHeader.innerHTML = "Author";
+  pagesHeader.innerHTML = "Pages";
+  readHeader.innerHTML = "Read";
+
+  for (let i = 0; i < bookList.length; i++) {
+    let book = bookList[i];
+    let row = table.insertRow();
+    let titleCell = row.insertCell();
+    let authorCell = row.insertCell();
+    let pagesCell = row.insertCell();
+    let readCell = row.insertCell();
+    titleCell.innerHTML = book.title;
+    authorCell.innerHTML = book.author;
+    pagesCell.innerHTML = book.pages;
+    readCell.innerHTML = book.read;
+  }
+
+  document.body.appendChild(table);
+}
+
+
+
+// addBook();
+// addBook();
+// console.log(bookList);
+
+
+
+    </script>
    
 </body>
 </html
