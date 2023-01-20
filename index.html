@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>e-library</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header><h3> e-LIBRARY</h3></header>
+    <header><h3> Book Circle</h3>
     <div class="signup">
 
      <!-- <div class="form"><label for="email">Email</label>
@@ -20,8 +20,21 @@
     <h4><button type="button" id="login">Login</button></h4>
     <h4><button type="button" id="logout">Logout</button></h4>
     </div>
+    </header>
 
-    <div class="add"><button>+ Add Book</button></div>
+   
+    <button id="new-book-button">+ Add Book</button>
+<form id="new-book-form" style="display:none;">
+  <label for="title"></label>
+  <input type="text" id="title" name="title" placeholder= "Title" required><br>
+  <label for="author"></label>
+  <input type="text" id="author" name="author" placeholder="Author" required><br>
+  <label for="pages"></label>
+  <input type="number" id="pages" name="pages" placeholder= "Pages" required><br>
+  <label for="read"> Have you read it?:</label>
+  <input type="checkbox" id="read" name="read"><br>
+  <input type="submit" id="submit" value="Submit" required>
+</form>
     <footer>copyright (c) 2023 Say'rah </footer>
  <!-- <script>
   const login= document.getElementById("login");
@@ -129,6 +142,22 @@ const login= document.getElementById('login').innerHTML= 'Logged In Successfully
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
+  firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in.
+    const userId = user.uid;
+    console.log("Signed in user ID: ", userId);
+  } else {
+    // User is signed out.
+    console.log("No signed in user.");
+  }
+  function addBook(book) {
+  const userId = firebase.auth().currentUser.uid;
+  firebase.firestore().collection("users").doc(userId).collection("books").add(book);
+}
+
+});
+
 
 })
 logout.addEventListener('click', (e)=> {
@@ -153,6 +182,10 @@ signOut(auth).then(() => {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read"}`;
   }
 }
+Book.prototype.changeReadStatus = function() {
+    this.read = !this.read;
+}
+
 
 let bookList = [];
 
@@ -171,43 +204,134 @@ function addBook() {
 
   let newBook = new Book(title, author, pages, read);
   bookList.push(newBook);
+  
  }
-  // This function creates a table element, and then creates 
-  // a header row with cells for "Title", "Author", "Pages",
-  // and "Read". Then it loops through the books array and for
-  // each book it creates a new row in the table with cells for
-  // the book's title, author, pages, and read status. The innerHTML
-  // of each cell is set to the corresponding property of the book. 
-  // Finally, the table is appended to the body of the document.
-  function displayBooks() {
-  let table = document.createElement("table");
-  let headerRow = table.insertRow();
-  let titleHeader = headerRow.insertCell();
-  let authorHeader = headerRow.insertCell();
-  let pagesHeader = headerRow.insertCell();
-  let readHeader = headerRow.insertCell();
-  titleHeader.innerHTML = "Title";
-  authorHeader.innerHTML = "Author";
-  pagesHeader.innerHTML = "Pages";
-  readHeader.innerHTML = "Read";
+  
+
+
+// In this example, I have added a check to check if the container 
+// element is already present or not, if it is present then it is removed
+//  before creating a new container element and then it creates a new card 
+//  element for each book in the books array.
+
+// For each book, the displayBooks() function creates a new div element and
+// sets the data-index attribute of the div to the book's index in the array.
+// Then it creates new elements for the book's title, author, pages, read status
+// and a remove button. It appends the new elements to the card and the card to 
+// the container.
+
+// It also adds a click event listener to the remove button, so that when the
+//  button is clicked, the book is removed from the array using the splice() method, 
+// this function takes an event object as an argument and by using e.target we are
+// able to get the target element which is the remove button, by using this we are
+// able to get the
+
+
+
+
+function displayBooks() {
+  let container = document.getElementById("book-container")
+  if(container) {
+    container.remove();
+  }
+  container = document.createElement("div");
+  container.setAttribute("id", "book-container");
 
   for (let i = 0; i < bookList.length; i++) {
     let book = bookList[i];
-    let row = table.insertRow();
-    let titleCell = row.insertCell();
-    let authorCell = row.insertCell();
-    let pagesCell = row.insertCell();
-    let readCell = row.insertCell();
-    titleCell.innerHTML = book.title;
-    authorCell.innerHTML = book.author;
-    pagesCell.innerHTML = book.pages;
-    readCell.innerHTML = book.read;
+    let card = document.createElement("div");
+    card.setAttribute("class", "book-card");
+    card.setAttribute("data-index", i);
+
+    let title = document.createElement("h2");
+    title.innerHTML = book.title;
+    card.appendChild(title);
+
+    let author = document.createElement("p");
+    author.innerHTML = "Author: " + book.author;
+    card.appendChild(author);
+
+    let pages = document.createElement("p");
+    pages.innerHTML = "Pages: " + book.pages;
+    card.appendChild(pages);
+
+    let read = document.createElement("p");
+    read.innerHTML = "Read: " + (book.read ? "Yes" : "No");
+    card.appendChild(read);
+    
+    // In this example, we created a toggleReadStatus function on the Book prototype
+    //  instance, which toggles the read status of a book.
+// In the displayBooks() function, for each book, the function creates a 
+// new div element and creates new elements for the book's title, author, pages,
+//  read status, change read status button and a remove button.
+// The change read status button's event listener, when clicked, calls the `toggle method' 
+// which changes the status of the book
+    let changeReadStatusButton = document.createElement("button");
+    changeReadStatusButton.innerHTML = "Change Read Status";
+    changeReadStatusButton.setAttribute("class", "readstatus")
+    changeReadStatusButton.addEventListener("click", function(e) {
+      book.changeReadStatus();
+      read.innerHTML = "Read: " + (book.read ? "Yes" : "No");
+    });
+    card.appendChild(changeReadStatusButton);
+
+    
+    
+    
+    
+    let removeButton = document.createElement("button");
+    removeButton.setAttribute("class", "remove")
+    removeButton.innerHTML = "Remove";
+    removeButton.addEventListener("click", function(e) {
+      let index = e.target.parentNode.getAttribute("data-index");
+      bookList.splice(index, 1);
+      displayBooks();
+    });
+    card.appendChild(removeButton);
+    container.appendChild(card);
   }
 
-  document.body.appendChild(table);
+  document.body.appendChild(container);
+
+  
 }
 
 
+// In this example, a button with the id "new-book-button" is created and a 
+// form with the id "new-book-form" is created. The form is initially hidden.
+// A click event is added to the button, so that when it is clicked, 
+// the form will be displayed.
+// A submit event is added to the form, so that when the form is submitted,
+// the form's data is used to create a new book object and this object is added 
+// to books array and then it will display the books on it's card on the page.
+// Additionally, the form's default behavior of submitting the data to a server 
+// is prevented by calling event.preventDefault() so that the form submission 
+// doesn't refresh the page.
+let newBookButton = document.getElementById("new-book-button");
+  let newBookForm = document.getElementById("new-book-form");
+
+  newBookButton.addEventListener("click", function() {
+    newBookForm.style.display = "block";
+  });
+
+  newBookForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // prevent the form from trying to submit to a server
+    let title = document.getElementById("title").value;
+    let author =document.getElementById("author").value;
+    let pages = document.getElementById("pages").value;
+    let read =  document.getElementById("read").checked;
+    let newBook = new Book(title, author, pages, read);
+
+    bookList.push(newBook);
+    displayBooks();
+    newBookForm.style.display = "none";
+  });
+
+
+
+// addBook();
+//  addBook();
+//  displayBooks();
 
 // addBook();
 // addBook();
