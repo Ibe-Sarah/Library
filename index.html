@@ -142,25 +142,29 @@ const login= document.getElementById('login').innerHTML= 'Logged In Successfully
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
-  firebase.auth().onAuthStateChanged((user) => {
+  
+})
+firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    // User is signed in.
-    const userId = user.uid;
-    console.log("Signed in user ID: ", userId);
+    localStorage.setItem("userId", user.uid);
   } else {
-    // User is signed out.
-    console.log("No signed in user.");
+    localStorage.removeItem("userId");
   }
-  function addBook(book) {
-  const userId = firebase.auth().currentUser.uid;
-  firebase.firestore().collection("users").doc(userId).collection("books").add(book);
-}
-
-
 });
 
 
-})
+function addBook(book) {
+  const userId = localStorage.getItem("userId");
+  if (!userId) {
+    console.log("Cannot add book, user is not logged in");
+    return;
+  }
+  const existingBooks = JSON.parse(localStorage.getItem("books")) || {};
+  existingBooks[userId] = existingBooks[userId] || [];
+  existingBooks[userId].push(book);
+  localStorage.setItem("books", JSON.stringify(existingBooks));
+}
+
 logout.addEventListener('click', (e)=> {
   const auth= getAuth();
   
